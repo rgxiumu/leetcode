@@ -16,7 +16,19 @@
 package leetcode.editor.cn;
 public class P2AddTwoNumbers {
     public static void main(String[] args) {
-       // Solution2 solution = new P2AddTwoNumbers().new Solution2();
+        Solution solution = new P2AddTwoNumbers().new Solution();
+        ListNode l1 = new ListNode(2);
+        l1.next = new ListNode(4);
+        l1.next.next = new ListNode(9);
+        ListNode l2 = new ListNode(5);
+        l2.next = new ListNode(6);
+        l2.next.next = new ListNode(4);
+        l2.next.next.next = new ListNode(9);
+        ListNode listNode = solution.addTwoNumbers(l1, l2);
+        while (listNode != null) {
+            System.out.println(listNode.val);
+            listNode = listNode.next;
+        }
     }
     //leetcode submit region begin(Prohibit modification and deletion)
 /**
@@ -29,7 +41,27 @@ public class P2AddTwoNumbers {
  */
 class Solution {
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-        return null;
+       ListNode te = new ListNode(0);
+       ListNode re = new ListNode(0);
+       te.next = re;
+       int temp = 0;
+       while (l1 != null || l2 != null || temp > 0) {
+           int num1 = l1 != null ? l1.val : 0;
+           int num2 = l2 != null ? l2.val : 0;
+
+           int sum = num1 + num2 + temp;
+           temp = 0;
+           int val = sum;
+           if (sum > 9) {
+               val = sum % 10;
+               temp = 1;
+           }
+           re.next = new ListNode(val);
+           re = re.next;
+           l1 = l1 != null ? l1.next : null;
+           l2 = l2 != null ? l2.next : null;
+       }
+       return te.next.next;
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
